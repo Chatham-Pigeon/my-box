@@ -67,7 +67,7 @@ async def is_default(ctx: Context, send_message: bool = True) -> bool:
     return facts
 
 async def is_not_blacklisted(ctx: Context, send_message: bool = True) -> bool:
-    facts: _check_roles(ctx.author, config.ROLE_BLACKLISTED)
+    facts = _check_roles(ctx.author, config.ROLE_BLACKLISTED)
     print(f"test {facts}")
     if facts is True:
         return False
