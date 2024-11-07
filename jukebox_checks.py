@@ -73,7 +73,7 @@ async def is_not_blacklisted(ctx: Context, send_message: bool = True) -> bool:
     if facts is True:
         msg = "u are myusic banned".format(
             jukebox.bot.get_channel(config.CHANNEL_VOICE).mention)
-        await ctx.reply(context=msg)
+        await ctx.reply(content=msg)
         return False
     else:
         return True
