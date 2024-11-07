@@ -9,6 +9,7 @@ Contents:
     Check functions
 """
 from lib2to3.fixes.fix_input import context
+from tokenize import maybe
 from typing import Union, List
 
 import discord
@@ -70,7 +71,9 @@ async def is_default(ctx: Context, send_message: bool = True) -> bool:
 async def is_not_blacklisted(ctx: Context, send_message: bool = True) -> bool:
     facts = _check_roles(ctx.author, [config.ROLE_BLACKLISTED])
     if facts is True:
-        await ctx.reply(context="u are BANNED")
+        msg = "u are myusic banned".format(
+            jukebox.bot.get_channel(config.CHANNEL_VOICE).mention)
+        await ctx.reply(context=msg)
         return False
     else:
         return True
