@@ -67,11 +67,11 @@ async def is_default(ctx: Context, send_message: bool = True) -> bool:
     return facts
 
 async def is_not_blacklisted(ctx: Context, send_message: bool = True) -> bool:
-	has_blacklist = _check_roles(ctx.author, config.ROLE_BLACKLISTED)
-	if facts is true:
-		return False
-	else:
-		return True
+    facts: _check_roles(ctx.author, config.ROLE_BLACKLISTED)
+    if facts is True:
+        return False
+    else:
+        return True
 
 
 async def is_voice_only(ctx: Context, send_message: bool = True) -> bool:

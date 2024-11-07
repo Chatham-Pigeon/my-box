@@ -299,8 +299,7 @@ async def on_message(message):
     # Check if the message is in the specified channel and not from a bot
     if message.channel.id == 1302851483108245525:
         await bot.process_commands(message)
-        print(f"uhhh test! {message}")
-        # Wait for 30 minutes (1800 seconds)
+        # Wait for 30 seconds (300 seconds)
         await asyncio.sleep(300)
         
         try:
