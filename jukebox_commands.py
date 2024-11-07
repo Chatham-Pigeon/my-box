@@ -31,6 +31,7 @@ Contents:
 import json
 import os
 from io import StringIO
+from lib2to3.fixes.fix_input import context
 
 import pkg_resources
 import random
@@ -363,7 +364,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
     @commands.command(name="add?", aliases=["a?"])
     @commands.check(is_voice_only)
-    @commands.check(is_not_blacklisted)
+    @commands.check(is_not_blacklisted(context))
     async def add_ambiguous(self, ctx: Context, *, query: str = None) -> None:
         """
         :param ctx:
