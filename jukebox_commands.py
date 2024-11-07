@@ -363,8 +363,8 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
     # Default user commands
 
     @commands.command(name="add?", aliases=["a?"])
-    @commands.check(is_voice_only)
     @commands.check(is_not_blacklisted)
+    @commands.check(is_voice_only)
     async def add_ambiguous(self, ctx: Context, *, query: str = None) -> None:
         """
         :param ctx:
@@ -406,6 +406,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 await ctx.reply(content=msg)
 
     @commands.command(name="add", aliases=["a"])
+    @commands.check(is_not_blacklisted)
     @commands.check(is_voice_only)
     async def add(self, ctx: Context, *, query: str = None) -> None:
         """

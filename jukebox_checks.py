@@ -8,6 +8,7 @@ Contents:
     Check errors
     Check functions
 """
+from lib2to3.fixes.fix_input import context
 from typing import Union, List
 
 import discord
@@ -68,8 +69,8 @@ async def is_default(ctx: Context, send_message: bool = True) -> bool:
 
 async def is_not_blacklisted(ctx: Context, send_message: bool = True) -> bool:
     facts = _check_roles(ctx.author, [config.ROLE_BLACKLISTED])
-    print(f"test {facts}")
     if facts is True:
+        await ctx.reply(context="u are BANNED")
         return False
     else:
         return True
