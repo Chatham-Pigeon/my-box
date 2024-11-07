@@ -71,9 +71,6 @@ async def is_default(ctx: Context, send_message: bool = True) -> bool:
 async def is_not_blacklisted(ctx: Context, send_message: bool = True) -> bool:
     facts = _check_roles(ctx.author, [config.ROLE_BLACKLISTED])
     if facts is True:
-        msg = "u are myusic banned".format(
-            jukebox.bot.get_channel(config.CHANNEL_VOICE).mention)
-        await ctx.reply(content=msg)
         return False
     else:
         return True
