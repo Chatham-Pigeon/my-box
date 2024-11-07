@@ -86,7 +86,7 @@ ROLE_DEFAULT: int = 1230678008256401480
 """Discord role ID for commands requiring basic privileges."""
 ROLE_LISTEN: int = 1230678008256401480
 """Discord role ID for a role with no privileges."""
-ROLE_JUKEBOX: int = 1302579077370089604
+ROLE_JUKEBOX: int = 1230740678858768394
 """Discord role ID for bonus flavour role themed around the jukebox."""
 ROLE_DJ: int = 1303657331581648916
 """access slightly more important commands"""
