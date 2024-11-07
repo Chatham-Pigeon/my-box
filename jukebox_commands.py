@@ -36,7 +36,7 @@ import pkg_resources
 import random
 import re
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from importlib import reload
 from importlib import metadata
 from math import ceil, floor
@@ -55,7 +55,7 @@ import config
 import jukebox_checks
 import jukebox_impl
 import strings
-from jukebox_checks import is_admin, is_trusted, is_default, is_voice_only, is_looping_enabled, is_pausing_enabled
+from jukebox_checks import is_admin, is_trusted, is_default, is_voice_only, is_looping_enabled, is_pausing_enabled, is_not_blacklisted
 from jukebox_impl import jukebox, JukeboxItem
 from db import DBUser
 
@@ -346,7 +346,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
     """Whether commands are blocked for non-admin users."""
     listening_users: Dict[int, int] = {}
     """Map of users in the voice channel on track playback started, and the track timestamp they joined at."""
-    start_time: datetime = datetime.utcnow()
+    start_time: datetime.now(timezone.utc)
     """Datetime instance recording start time for commands cog."""
 
     # Constants
@@ -879,8 +879,8 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 await ctx.reply(content=msg, embed=embed)
 
     @commands.command(name="jukebox", aliases=["j"])
-	@commands.check(is_not_blacklisted)
-	@commands.check(is_admin)
+    @commands.check(is_not_blacklisted)
+    @commands.check(is_admin)
     async def print_jukebox(self, ctx: Context) -> None:
         """
         Generate a formatted embed with info for the jukebox stats to send in the command channel.
@@ -893,7 +893,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 await ctx.reply(content=msg, embed=embed)
 
     @commands.command(name="info", aliases=["i"])
-	@commands.check(is_not_blacklisted)
+    @commands.check(is_not_blacklisted)
     async def print_info(self, ctx: Context) -> None:
         """
         Send info about the jukebox in the command channel.
@@ -905,7 +905,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
     # Trusted user commands
 
     @commands.command(name="lyrics?", aliases=["l?"])
-	@commands.check(is_not_blacklisted)
+    @commands.check(is_not_blacklisted)
     @commands.check(is_trusted)
     async def lyrics_ambiguous(self, ctx: Context, *, query: str = None) -> None:
         """
@@ -941,7 +941,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 await ctx.reply(content=msg)
 
     @commands.command(name="lyrics", aliases=["l"])
-	@commands.check(is_not_blacklisted)
+    @commands.check(is_not_blacklisted)
     @commands.check(is_trusted)
     async def lyrics(self, ctx: Context, *, query: str = None) -> None:
         """
@@ -971,7 +971,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                     embed=embed)
 
     @commands.command(name="pause", aliases=["p"])
-	@commands.check(is_not_blacklisted)
+    @commands.check(is_not_blacklisted)
     @commands.check(is_trusted)
     @commands.check(is_voice_only)
     @commands.check(is_pausing_enabled)
@@ -1002,7 +1002,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         await self._update_presence()
 
     @commands.command(name="loop", aliases=["o"])
-	@commands.check(is_not_blacklisted)
+    @commands.check(is_not_blacklisted)
     @commands.check(is_trusted)
     @commands.check(is_voice_only)
     @commands.check(is_looping_enabled)
