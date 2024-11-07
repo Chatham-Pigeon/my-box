@@ -364,7 +364,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
     @commands.command(name="add?", aliases=["a?"])
     @commands.check(is_voice_only)
-    @commands.check(is_not_blacklisted(context))
+    @commands.check(is_not_blacklisted)
     async def add_ambiguous(self, ctx: Context, *, query: str = None) -> None:
         """
         :param ctx:
@@ -372,7 +372,6 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         """
         msg: Optional[str] = None
         embed: Optional[discord.Embed] = None
-
         # Resolve query
         query = parse_query(query=query)
 
