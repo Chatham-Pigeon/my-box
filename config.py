@@ -106,7 +106,7 @@ CORO_TIMEOUT: int = 120
 """Duration in seconds before coroutines are timed-out."""
 VOICE_TIMEOUT: int = 120
 """Duration in seconds before voice connections are timed-out."""
-VOICE_RECONNECT: bool = False
+VOICE_RECONNECT: bool = True
 """Whether to automatically reconnect to voice channels after time-out."""
 
 LOGGING_FILE: bool = False
@@ -133,7 +133,7 @@ PLAYLIST_LOOPING: bool = True
 """Whether queues may be toggled to loop their tracks, reappending played tracks."""
 PLAYLIST_PAUSING: bool = True
 """Whether queues may be toggled to pause playback until next unpaused."""
-TRACK_DURATION_LIMIT: int = 500
+TRACK_DURATION_LIMIT: int = 99999
 """Duration in seconds for track runtime before being blocked from the queue."""
 
 # Lyrics
