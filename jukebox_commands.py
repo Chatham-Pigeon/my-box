@@ -577,11 +577,9 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 msg = get_empty_queue_msg()
             else:
                 tracks: List[JukeboxItem] = jukebox.get_range(index_start=0, index_end=skip_count)
-                await self._do_skip(
-                    ctx=ctx,
-                    extra_data=tracks)
-                if msg:
-                    await ctx.reply(content=msg)
+                await self._do_skip(ctx=ctx, extra_data=tracks)
+            if msg:
+                await ctx.reply(content=msg)
 
     @commands.command(name="delete", aliases=["d"])
     @commands.check(is_not_blacklisted)
