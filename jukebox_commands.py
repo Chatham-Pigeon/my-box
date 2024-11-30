@@ -992,7 +992,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
     @commands.command(name="loop", aliases=["o"])
     @commands.check(is_not_blacklisted)
-    @commands.check(is_trusted)
+    @commands.check(is_dj)
     @commands.check(is_voice_only)
     @commands.check(is_looping_enabled)
     async def toggle_loop(self, ctx: Context) -> None:
