@@ -887,8 +887,6 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         embed: Optional[discord.Embed] = None
         async with ctx.typing():
             msg, embed = await self._do_print_user(ctx=ctx, query=str(Commands.bot.user.id))
-            if msg or embed:
-                await ctx.reply(content=msg, embed=embed)
             print(embed)
             if embed:
                 num_to_fetch: int = 25
@@ -917,6 +915,8 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 if num_others > 0:
                     top_users_str += strings.get("jukebox_leaderboard_count").format(num_others)
                 embed.add_field(name=strings.get("jukebox_leaderboard_title"), value=top_users_str, inline=False)
+        if msg or embed:
+            await ctx.reply(content=msg, embed=embed)
 
     @commands.command(name="info", aliases=["i"])
     @commands.check(is_not_blacklisted)
