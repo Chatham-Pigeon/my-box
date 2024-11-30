@@ -642,24 +642,9 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                     await self._do_wipe(
                         ctx=ctx,
                         extra_data=tracks)
-                elif await is_trusted(ctx=ctx, send_message=False):
-                    # For non-queue-owner calls, start a vote to wipe the target user's queue
-                    vote_msg: str = strings.get("info_vote_wipe").format(
-                        len(tracks),
-                        ctx.message.author.mention,
-                        tracks[0].added_by.mention)
-                    vote: Vote = Vote(
-                        vote_type=Vote.VOTE_WIPE,
-                        allow_no=False,
-                        extra_data=tracks,
-                        end_func=self._do_wipe)
-                    await Vote.start_vote(
-                        ctx=ctx,
-                        vote=vote,
-                        start_msg=vote_msg)
                 else:
                     msg = strings.get("error_privileges_other").format(
-                        ctx.guild.get_role(config.ROLE_TRUSTED).mention,
+                        ctx.guild.get_role(config.ROLE_DJ).mention,
                         ctx.command)
             except commands.UserNotFound:
                 msg = strings.get("error_user_not_found").format(query)
