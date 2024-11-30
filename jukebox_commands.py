@@ -56,7 +56,7 @@ import config
 import jukebox_checks
 import jukebox_impl
 import strings
-from jukebox_checks import is_admin, is_trusted, is_default, is_voice_only, is_looping_enabled, is_pausing_enabled, is_not_blacklisted
+from jukebox_checks import is_dj, is_admin, is_trusted, is_default, is_voice_only, is_looping_enabled, is_pausing_enabled, is_not_blacklisted
 from jukebox_impl import jukebox, JukeboxItem
 from db import DBUser
 
@@ -564,6 +564,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
     @commands.command(name="skip", aliases=["s"])
     @commands.check(is_not_blacklisted)
     @commands.check(is_voice_only)
+    @commands.check(is_dj)
     async def skip(self, ctx: Context, skip_count: int = 1) -> None:
         """
         Removes a given number of tracks from the head of the queue.
@@ -576,30 +577,11 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 msg = get_empty_queue_msg()
             else:
                 tracks: List[JukeboxItem] = jukebox.get_range(index_start=0, index_end=skip_count)
-                if all(track.added_by is ctx.message.author for track in tracks) or await is_admin(ctx=ctx, send_message=False) \
-                        or Vote.required_votes() <= 1:
-                    await self._do_skip(
-                        ctx=ctx,
-                        extra_data=tracks)
-                elif await is_trusted(ctx=ctx, send_message=False):
-                    vote_msg: str = strings.get("info_vote_skip").format(
-                        skip_count,
-                        ctx.message.author.mention)
-                    vote: Vote = Vote(
-                        vote_type=Vote.VOTE_SKIP,
-                        allow_no=False,
-                        extra_data=tracks,
-                        end_func=self._do_skip)
-                    await Vote.start_vote(
-                        ctx=ctx,
-                        vote=vote,
-                        start_msg=vote_msg)
-                else:
-                    msg = strings.get("error_privileges_other").format(
-                        ctx.guild.get_role(config.ROLE_TRUSTED).mention,
-                        ctx.command)
-            if msg:
-                await ctx.reply(content=msg)
+                await self._do_skip(
+                    ctx=ctx,
+                    extra_data=tracks)
+                if msg:
+                    await ctx.reply(content=msg)
 
     @commands.command(name="delete", aliases=["d"])
     @commands.check(is_not_blacklisted)

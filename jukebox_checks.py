@@ -75,6 +75,9 @@ async def is_not_blacklisted(ctx: Context, send_message: bool = True) -> bool:
     else:
         return True
 
+async def is_dj(ctx: Context, send_message: bool = False) -> bool:
+    facts = _check_roles(ctx.author, [config.ROLE_DJ])
+    return  facts
 
 async def is_voice_only(ctx: Context, send_message: bool = True) -> bool:
     # Filter voice-only command uses by users currently in the voice channel
