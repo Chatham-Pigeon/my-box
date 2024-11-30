@@ -1,4 +1,4 @@
-py-cord
+py-cord==2.3.3
 yt-dlp
 PyNaCl
 setuptools
