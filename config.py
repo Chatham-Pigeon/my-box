@@ -78,6 +78,8 @@ DISCORD_INTENTS: discord.Intents = discord.Intents(
 COMMAND_PREFIX: str = "?"
 """Prefix required for all messages sent in command channel."""
 
+
+"""depreacted VVV"""
 ROLE_ADMIN: int = 1232232285722513441
 """Discord role ID for commands and features requiring admin privileges."""
 ROLE_TRUSTED: int = 1230678008256401480
@@ -88,6 +90,8 @@ ROLE_LISTEN: int = 1230678008256401480
 """Discord role ID for a role with no privileges."""
 ROLE_JUKEBOX: int = 1230740678858768394
 """Discord role ID for bonus flavour role themed around the jukebox."""
+"""DEPRECATED ^^^^"""
+
 ROLE_DJ: int = 1303657331581648916
 """access slightly more important commands"""
 ROLE_BLACKLISTED: int = 1303657386371977246
