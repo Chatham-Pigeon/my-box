@@ -889,6 +889,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
             msg, embed = await self._do_print_user(ctx=ctx, query=str(Commands.bot.user.id))
             if msg or embed:
                 await ctx.reply(content=msg, embed=embed)
+            print(embed)
             if embed:
                 num_to_fetch: int = 25
                 num_to_show: int = 10 + 1
