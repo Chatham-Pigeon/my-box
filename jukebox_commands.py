@@ -377,10 +377,8 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
         async with ctx.typing():
             try:
-                if not jukebox.is_in_voice_channel(member=ctx.author):
-                    # Users can only play the jukebox if they're in the voice channel
-                    msg = strings.get("error_command_voice_only").format(
-                        Commands.bot.get_channel(config.CHANNEL_VOICE).mention)
+                if True is False:
+                    print("ugh")
                 else:
                     # Fetch metadata for tracks based on the given query
                     entries: List[dict] = await jukebox_impl.YTDLSource.get_playlist_info(
