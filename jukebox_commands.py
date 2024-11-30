@@ -602,31 +602,10 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         async with ctx.typing():
             if jukebox.is_empty():
                 msg = get_empty_queue_msg()
-            elif track.added_by.id == ctx.author.id or await is_admin(ctx=ctx, send_message=False) \
-                    or Vote.required_votes() <= 1:
-                await self._do_delete(
-                    ctx=ctx,
-                    extra_data=index)
-            elif await is_trusted(ctx=ctx, send_message=False):
-                vote_msg: str = strings.get("info_vote_delete").format(
-                    track.title,
-                    ctx.message.author.mention,
-                    track.added_by.mention)
-                vote: Vote = Vote(
-                        vote_type=Vote.VOTE_DELETE,
-                        allow_no=False,
-                        extra_data=index,
-                        end_func=self._do_delete)
-                await Vote.start_vote(
-                    ctx=ctx,
-                    vote=vote,
-                    start_msg=vote_msg)
             else:
-                msg = strings.get("error_privileges_other").format(
-                    ctx.guild.get_role(config.ROLE_TRUSTED).mention,
-                    ctx.command)
-        if msg:
-            await ctx.reply(content=msg)
+                await self._do_delete(ctx=ctx, extra_data=index)
+            if msg:
+                await ctx.reply(content=msg)
 
     @commands.command(name="shuffle", aliases=["f"])
     @commands.check(is_not_blacklisted)

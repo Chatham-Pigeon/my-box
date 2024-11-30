@@ -44,7 +44,7 @@ def _check_roles(user: Union[discord.User, discord.Member], role_ids: List[int])
     """
     return (isinstance(user, discord.Member)
             and len(role_ids) > 0 and len([r for r in user.roles if r.id in role_ids]) > 0)
-
+"""mostly deprecated ZVZVZZV"""
 async def is_admin(ctx: Context, send_message: bool = True) -> bool:
     facts = _check_roles(ctx.author, [config.ROLE_ADMIN])
     if not facts and send_message:
@@ -67,15 +67,16 @@ async def is_default(ctx: Context, send_message: bool = True) -> bool:
         msg = strings.get("error_command_role_permissions")
         await ctx.reply(content=msg)
     return facts
+"""depreacted ^^^"""
 
-async def is_not_blacklisted(ctx: Context, send_message: bool = True) -> bool:
+async def is_not_blacklisted(ctx: Context, send_message: bool = False) -> bool:
     facts = _check_roles(ctx.author, [config.ROLE_BLACKLISTED])
     if facts is True:
         return False
     else:
         return True
 
-async def is_dj(ctx: Context, send_message: bool = False) -> bool:
+async def is_dj(ctx: Context, send_message: bool = True) -> bool:
     facts = _check_roles(ctx.author, [config.ROLE_DJ])
     return  facts
 
