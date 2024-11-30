@@ -1689,7 +1689,7 @@ async def ensure_voice() -> None:
     Attempts to join the configured voice channel.
     """
     print(f"WHAT THE SIGMA")
-    voice_channel: discord.VoiceChannel = jukebox.bot.get_channel(config.CHANNEL_VOICE)
+    voice_channel: discord.VoiceChannel = 858670100512768010
     if is_voice_bad(guild=voice_channel.guild):
         await voice_channel.guild.change_voice_state(channel=None)
     try:
