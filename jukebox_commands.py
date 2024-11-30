@@ -611,6 +611,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
     @commands.command(name="shuffle", aliases=["f"])
     @commands.check(is_not_blacklisted)
     @commands.check(is_voice_only)
+    @commands.check(is_dj)
     async def shuffle(self, ctx: Context) -> None:
         """
         Shuffles the queue in-place, stopping the currently-playing track and restarting with the new current track.
@@ -960,9 +961,9 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
     @commands.command(name="pause", aliases=["p"])
     @commands.check(is_not_blacklisted)
-    @commands.check(is_trusted)
     @commands.check(is_voice_only)
     @commands.check(is_pausing_enabled)
+    @commands.check(is_dj)
     async def toggle_pause(self, ctx: Context) -> None:
         """
         Pauses or resumes the currently-playing track with no change to the tracking.

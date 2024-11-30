@@ -78,6 +78,8 @@ async def is_not_blacklisted(ctx: Context, send_message: bool = False) -> bool:
 
 async def is_dj(ctx: Context, send_message: bool = True) -> bool:
     facts = _check_roles(ctx.author, [config.ROLE_DJ])
+    msg = strings.get("error_command_role_permissions")
+    await ctx.reply(content=msg)
     return  facts
 
 async def is_voice_only(ctx: Context, send_message: bool = True) -> bool:
