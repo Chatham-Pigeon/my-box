@@ -1144,32 +1144,6 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
         await ctx.reply(embed=embed)
 
-    @commands.command(name="uptime", aliases=["runtime"], hidden=True)
-    @commands.check(is_admin)
-    async def send_uptime(self, ctx: Context):
-        """
-        Prints start and current running times for the bot.
-        """
-        msg: str
-        embed: discord.Embed = discord.Embed(colour=get_embed_colour(ctx.guild))
-
-        delta_uptime = datetime.now() - Commands.bot.start_time
-        hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
-        minutes, seconds = divmod(remainder, 60)
-        days, hours = divmod(hours, 24)
-
-        msg = strings.get("info_uptime_bot").format(
-            days, hours, minutes, seconds,
-            Commands.bot.start_time.strftime(strings.get("datetime_format_uptime")))
-        embed.add_field(name=strings.get("info_uptime_heading_bot"), value=msg, inline=False)
-
-        msg = strings.get("info_uptime_cog").format(
-            Commands.start_time.strftime(strings.get("datetime_format_uptime")))
-        embed.add_field(name=strings.get("info_uptime_heading_cog"), value=msg, inline=False)
-
-        await ctx.reply(embed=embed)@commands.command(name="uptime", aliases=["runtime"], hidden=True)
-
-
     @commands.command(name="versions", aliases=["version", "vers", "ver"], hidden=True)
     @commands.check(is_admin)
     async def send_versions(self, ctx: Context) -> None:
