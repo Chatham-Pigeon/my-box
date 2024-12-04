@@ -1128,14 +1128,14 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         msg: str
         embed: discord.Embed = discord.Embed(colour=get_embed_colour(ctx.guild))
 
-        delta_uptime = datetime.utcnow() - Commands.bot.start_time
+        delta_uptime = datetime.now() - self.start_time
         hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
         minutes, seconds = divmod(remainder, 60)
         days, hours = divmod(hours, 24)
 
         msg = strings.get("info_uptime_bot").format(
             days, hours, minutes, seconds,
-            Commands.bot.start_time.strftime(strings.get("datetime_format_uptime")))
+            self.start_time.strftime(strings.get("datetime_format_uptime")))
         embed.add_field(name=strings.get("info_uptime_heading_bot"), value=msg, inline=False)
 
         msg = strings.get("info_uptime_cog").format(
@@ -1153,7 +1153,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         msg: str
         embed: discord.Embed = discord.Embed(colour=get_embed_colour(ctx.guild))
 
-        delta_uptime = datetime.utcnow() - Commands.bot.start_time
+        delta_uptime = datetime.now() - Commands.bot.start_time
         hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
         minutes, seconds = divmod(remainder, 60)
         days, hours = divmod(hours, 24)
