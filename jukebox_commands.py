@@ -995,6 +995,8 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         channel: discord.abc.GuildChannel = query_channel(guild=ctx.guild, query=query)
         if content and isinstance(channel, discord.TextChannel):
             message: discord.Message = await channel.send(content=content)
+            await ctx.message.delete()
+            print(f"HAHAH!H!")
             msg = strings.get("info_send_message").format(message.jump_url)
         else:
             msg = strings.get("error_send_message")
