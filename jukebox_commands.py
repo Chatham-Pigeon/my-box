@@ -1169,14 +1169,6 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
         await ctx.reply(embed=embed)@commands.command(name="uptime", aliases=["runtime"], hidden=True)
 
-    @commands.command(name="send", aliases=["send"], hidden=True)
-    @commands.check(is_admin)
-    async def send_message(self, ctx: Context):
-        """
-        sends message as the bot
-        """
-        await ctx.send(ctx.message.content)
-        await ctx.message.delete()
 
     @commands.command(name="versions", aliases=["version", "vers", "ver"], hidden=True)
     @commands.check(is_admin)
