@@ -125,7 +125,7 @@ class MusicBot(Bot):
             allowed_mentions=discord.AllowedMentions.none())
         self.help_command = self.MusicHelpCommand()
         self.db = db
-        self.start_time = datetime.utcnow()
+        self.start_time = datetime.now()
 
     # Bot events
 
