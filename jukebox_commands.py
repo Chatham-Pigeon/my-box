@@ -1173,7 +1173,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
     @commands.check(is_admin)
     async def send_message(self, ctx: Context):
         """
-        Prints start and current running times for the bot.
+        sends message as the bot
         """
         await ctx.send(ctx.message.content)
         await ctx.message.delete()
