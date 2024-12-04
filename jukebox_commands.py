@@ -998,7 +998,6 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
             msg = strings.get("info_send_message").format(message.jump_url)
         else:
             msg = strings.get("error_send_message")
-        await ctx.reply(content=msg)
 
     @commands.command(name="edit", hidden=True)
     @commands.check(is_admin)
