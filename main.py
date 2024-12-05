@@ -304,8 +304,11 @@ async def on_message(message):
         await asyncio.sleep(300)
         
         try:
-            await message.delete()
-            print(f"Deleted message from {message.author} in {message.channel.name}")
+            if message.pinned == False:
+                await message.delete()
+                print(f"Deleted message from {message.author} in {message.channel.name}")
+            else:
+                print(f"dojt delete the pinned message!")
         except discord.NotFound:
             # Message was already deleted or could not be found
             print(f"Message by {message.author} was already deleted or not found.")
