@@ -324,9 +324,9 @@ async def on_voice_state_update(member, before, after):
     print(str(member) + str(before) + str(after))
     if member.id == bot.user.id:
         if before.channel is None and after.channel is not None:
-            await bot.get_channel(config.CHANNEL_VOICE).send("Joined voicechat.")
+            await bot.get_channel(config.CHANNEL_LOG).send("Joined voicechat.")
         if before.channel is not None and after is None:
-            await bot.get_channel(config.CHANNEL_VOICE).send("Left voicechat.")
+            await bot.get_channel(config.CHANNEL_LOG).send("Left voicechat.")
 
 # Discord.py boilerplate
 
