@@ -317,6 +317,14 @@ async def on_message(message):
         except Exception as e:
             print(f"Error deleting message: {e}")
 
+@bot.event()
+async def on_voice_state_update(member, before, after):
+    if member.user.id == bot.user.id:
+        if before.channel is None and after.channel is not None:
+            bot.send("Joined voicechat.")
+        if before.channelis is not None and after is None:
+            bot.send("Left voicechat")
+
 # Discord.py boilerplate
 
 
