@@ -310,7 +310,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         async with ctx.typing():
             try:
                 if True is False:
-                    print("ugh")
+                    pass
                 else:
                     # Fetch metadata for tracks based on the given query
                     entries: List[dict] = await jukebox_impl.YTDLSource.get_playlist_info(
@@ -367,7 +367,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                     if jukebox.is_empty():
                         # Resuming an empty queue does nothing
                         # embed = get_empty_queue_embed(guild=ctx.guild)
-                        print ("meow")
+                        pass
                     else:
                         if not jukebox.is_in_voice_channel(member=ctx.author):
                             # Users can only play the jukebox if they're in the voice channel
@@ -763,7 +763,6 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         embed: Optional[discord.Embed] = None
         async with ctx.typing():
             msg, embed = await self._do_print_user(ctx=ctx, query=str(Commands.bot.user.id))
-            print(embed)
             if embed:
                 num_to_fetch: int = 25
                 num_to_show: int = 10 + 1
@@ -996,7 +995,6 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         if content and isinstance(channel, discord.TextChannel):
             message: discord.Message = await channel.send(content=content)
             await ctx.message.delete()
-            print(f"HAHAH!H!")
             msg = strings.get("info_send_message").format(message.jump_url)
         else:
             msg = strings.get("error_send_message")
@@ -1689,7 +1687,6 @@ async def ensure_voice() -> None:
     """
     Attempts to join the configured voice channel.
     """
-    print(f"WHAT THE SIGMA")
     voice_channel: discord.VoiceChannel = jukebox.bot.get_channel(858670100512768010)
     if is_voice_bad(guild=voice_channel.guild):
         await voice_channel.guild.change_voice_state(channel=None)

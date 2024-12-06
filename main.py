@@ -318,9 +318,6 @@ async def on_message(message):
 
 @bot.event
 async def on_voice_state_update(member, before, after):
-    print("bru?")
-    print(type(member), type(before), type(after))
-    print(str(member) + str(before) + str(after))
     if member.id == bot.user.id:
         if before.channel is None and after.channel is not None:
             await bot.get_channel(config.CHANNEL_LOG).send("Joined voicechat.")
