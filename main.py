@@ -317,7 +317,7 @@ async def on_message(message):
         except Exception as e:
             print(f"Error deleting message: {e}")
 
-@bot.event()
+@bot.event
 async def on_voice_state_update(member, before, after):
     if member.user.id == bot.user.id:
         if before.channel is None and after.channel is not None:
