@@ -297,7 +297,6 @@ async def is_valid_command_use(ctx: Context) -> bool:
 @bot.event
 async def on_message(message):
     
-    # Check if the message is in the specified channel and not from a bot
     if message.channel.id == 1302851483108245525:
         await bot.process_commands(message)
         # Wait for 30 seconds (300 seconds)
