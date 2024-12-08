@@ -366,7 +366,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                     # Without a search query, try to resume the last-playing track if paused
                     if jukebox.is_empty():
                         # Resuming an empty queue does nothing
-                        # embed = get_empty_queue_embed(guild=ctx.guild)
+                        embed = get_empty_queue_embed(guild=ctx.guild)
                         pass
                     else:
                         if not jukebox.is_in_voice_channel(member=ctx.author):
@@ -440,9 +440,10 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
                             if len(playlist_items) == 1:
                                 # One track was added to an empty queue
-                                description = strings.get("jukebox_current_added_by").format(
-                                    playlist_head.added_by.mention,
-                                    format_duration(sec=playlist_head.duration))
+                                description = strings.get("jukebox_added_one").format(
+                                    playlist_head.title,
+                                    format_duration(sec=playlist_head.duration),
+                                    jukebox.get_index_of_item(playlist_head) + 1)
                             elif num_failed < 1:
                                 # Several tracks in a playlist were added to an empty queue
                                 description = strings.get("jukebox_current_added_playlist").format(
