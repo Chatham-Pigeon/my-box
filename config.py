@@ -106,9 +106,9 @@ CHANNEL_LOG: int = 982041162472915034
 CHANNEL_BULLETIN: int = 982041162472915034
 """Discord channel ID used to send bulletins and news updates."""
 
-CORO_TIMEOUT: int = 120
+CORO_TIMEOUT: int = 60
 """Duration in seconds before coroutines are timed-out."""
-VOICE_TIMEOUT: int = 120
+VOICE_TIMEOUT: int = 60
 """Duration in seconds before voice connections are timed-out."""
 VOICE_RECONNECT: bool = True
 """Whether to automatically reconnect to voice channels after time-out."""
