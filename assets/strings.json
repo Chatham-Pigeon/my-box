@@ -147,5 +147,7 @@
   "error_edit_message": "Couldn't edit that message.",
   "error_avatar_not_found": "Couldn't update avatar without an attached file.",
   "error_avatar_size": "Couldn't update avatar: file too large (maximum {0} MB).",
-  "error_simulation": "Simulation complete (response: {0})."
+  "error_simulation": "Simulation complete (response: {0}).",
+  "error_multi_skip_admin_only": "Only Admins can skip multiple commands.",
+  "error_skip_others_song": "You can only skip songs you queued."
 }

@@ -54,7 +54,7 @@ import config
 import jukebox_checks
 import jukebox_impl
 import strings
-from jukebox_checks import is_dj, is_admin, is_trusted, is_default, is_voice_only, is_looping_enabled, is_pausing_enabled, is_not_blacklisted
+from jukebox_checks import is_dj, is_admin, is_voice_only, is_looping_enabled, is_pausing_enabled, is_not_blacklisted
 from jukebox_impl import jukebox, JukeboxItem
 from db import DBUser
 
@@ -507,8 +507,19 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
             if jukebox.is_empty():
                 msg = get_empty_queue_msg()
             else:
-                tracks: List[JukeboxItem] = jukebox.get_range(index_start=0, index_end=skip_count)
-                await self._do_skip(ctx=ctx, extra_data=tracks)
+                if skip_count > 1:
+                    if is_admin(ctx):
+                        tracks: List[JukeboxItem] = jukebox.get_range(index_start=0, index_end=skip_count)
+                        await self._do_skip(ctx=ctx, extra_data=tracks)
+                    else:
+                        msg = strings.get(__name="error_multi_skip_admin_only")
+                else:
+                    if jukebox.current_track().added_by.id == ctx.author.id or is_admin(ctx):
+                        track = jukebox.current_track()
+                        await self._do_skip(ctx=ctx, extra_data=track)
+                    else:
+                        msg = strings.get("error_skip_others_song")
+
             if msg:
                 await ctx.reply(content=msg)
 
