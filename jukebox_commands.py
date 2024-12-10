@@ -495,7 +495,6 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
     @commands.command(name="skip", aliases=["s"])
     @commands.check(is_not_blacklisted)
     @commands.check(is_voice_only)
-    @commands.check(is_dj)
     async def skip(self, ctx: Context, skip_count: int = 1) -> None:
         """
         Removes a given number of tracks from the head of the queue.
