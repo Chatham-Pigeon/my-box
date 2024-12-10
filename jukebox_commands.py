@@ -514,8 +514,8 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                         msg = strings.get(__name="error_multi_skip_admin_only")
                 else:
                     if jukebox.current_track().added_by.id == ctx.author.id or is_admin(ctx):
-                        track = jukebox.current_track()
-                        await self._do_skip(ctx=ctx, extra_data=track)
+                        tracks: List[JukeboxItem] = jukebox.get_range(index_start=0, index_end=skip_count)
+                        await self._do_skip(ctx=ctx, extra_data=tracks)
                     else:
                         msg = strings.get("error_skip_others_song")
 
