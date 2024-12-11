@@ -229,6 +229,11 @@ class MusicBot(Bot):
             # jukebox.stop()
             # await member.guild.voice_client.disconnect(force=True)
             print(f"meooow ignore this")
+            if member.id == bot.user.id:
+                if before.channel is None and after.channel is not None:
+                    await bot.get_channel(config.CHANNEL_LOG).send("Joined voicechat.")
+                if before.channel is not None and after.channel is None:
+                    await bot.get_channel(config.CHANNEL_LOG).send("Left voicechat.")
 
     def reload_strings(self) -> None:
         """
@@ -268,6 +273,10 @@ class MusicBot(Bot):
 # Init
 
 
+
+
+
+
 bot = MusicBot()
 """Main instance of the bot."""
 
@@ -303,7 +312,7 @@ async def on_message(message):
         await bot.process_commands(message)
         # Wait for 30 seconds (300 seconds)
         await asyncio.sleep(300)
-        
+
         try:
             if not message.pinned:
                 await message.delete()
@@ -318,27 +327,12 @@ async def on_message(message):
         except Exception as e:
             print(f"Error deleting message: {e}")
 
-
-@tasks.loop(seconds=1)
-async def update_cpu_usage():
-    print("WHAT")
-    await bot.get_channel(config.CHANNEL_TEXT).edit(topic=f'CPU Usage: {psutil.cpu_percent(interval=1)}%')
-
-
-@bot.event
-async def on_voice_state_update(member, before, after):
-    if member.id == bot.user.id:
-        if before.channel is None and after.channel is not None:
-            await bot.get_channel(config.CHANNEL_LOG).send("Joined voicechat.")
-        if before.channel is not None and after.channel is None:
-            await bot.get_channel(config.CHANNEL_LOG).send("Left voicechat.")
-
 # Discord.py boilerplate
 async def main():
     async with bot:
-        update_cpu_usage.start()
         print(config.COMMAND_PREFIX)
         await bot.start(config.TOKEN_DISCORD)
+
 
 asyncio.run(main=main())
 
