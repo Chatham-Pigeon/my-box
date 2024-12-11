@@ -38,6 +38,7 @@ import db
 import err
 import jukebox_commands
 import strings
+import token
 from jukebox_checks import is_admin, CheckFailureQuietly, is_channel_ok
 from jukebox_impl import jukebox
 from jukebox_commands import ensure_voice
@@ -327,7 +328,8 @@ async def on_voice_state_update(member, before, after):
 # Discord.py boilerplate
 async def main():
     async with bot:
-        await bot.start(token=config.TOKEN_DISCORD)
+        token = os.getenv('DISCORD_BOT_TOKEN')
+        await bot.start(token)
 
 asyncio.run(main=main())
 
