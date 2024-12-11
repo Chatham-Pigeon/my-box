@@ -303,7 +303,7 @@ async def on_message(message):
         await asyncio.sleep(300)
         
         try:
-            if message.pinned == False:
+            if not message.pinned:
                 await message.delete()
                 print(f"Deleted message from {message.author} in {message.channel.name}")
             else:
