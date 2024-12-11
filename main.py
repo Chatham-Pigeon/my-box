@@ -336,6 +336,8 @@ async def on_voice_state_update(member, before, after):
 # Discord.py boilerplate
 async def main():
     async with bot:
+        update_cpu_usage.start()
+        print(config.COMMAND_PREFIX)
         await bot.start(config.TOKEN_DISCORD)
 
 asyncio.run(main=main())
