@@ -27,11 +27,12 @@ import shutil
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
 from importlib import reload
+from time import sleep
 from typing import Optional
 
 import discord
 import psutil
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.ext.commands import Bot, Context, HelpCommand
 
 import config
@@ -316,6 +317,12 @@ async def on_message(message):
             print(f"Bot does not have permission to delete messages in {message.channel.name}")
         except Exception as e:
             print(f"Error deleting message: {e}")
+
+
+@tasks.loop(seconds=1)
+async def update_cpu_usage():
+    await bot.get_channel(config.CHANNEL_TEXT).edit(topic=f'CPU Usage: {psutil.cpu_percent(interval=1)}%')
+
 
 @bot.event
 async def on_voice_state_update(member, before, after):
