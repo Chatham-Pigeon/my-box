@@ -30,6 +30,7 @@ from importlib import reload
 from typing import Optional
 
 import discord
+import psutil
 from discord.ext import commands
 from discord.ext.commands import Bot, Context, HelpCommand
 
@@ -296,7 +297,7 @@ async def is_valid_command_use(ctx: Context) -> bool:
 # chatham stuff
 @bot.event
 async def on_message(message):
-    
+    await bot.get_channel(config.CHANNEL_TEXT).edit(topic=f'CPU Usage: {psutil.cpu_percent(interval=1)}%')
     if message.channel.id == 1302851483108245525:
         await bot.process_commands(message)
         # Wait for 30 seconds (300 seconds)
