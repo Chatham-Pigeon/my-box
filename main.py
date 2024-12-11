@@ -328,6 +328,7 @@ async def on_voice_state_update(member, before, after):
 async def main():
     async with bot:
         token = str(os.getenv('DISCORD_BOT_TOKEN'))
+        print(token)
         await bot.start(token)
 
 asyncio.run(main=main())
