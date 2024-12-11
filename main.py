@@ -321,6 +321,7 @@ async def on_message(message):
 
 @tasks.loop(seconds=1)
 async def update_cpu_usage():
+    print("WHAT")
     await bot.get_channel(config.CHANNEL_TEXT).edit(topic=f'CPU Usage: {psutil.cpu_percent(interval=1)}%')
 
 
