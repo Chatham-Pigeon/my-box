@@ -326,6 +326,9 @@ async def on_message(message):
         except Exception as e:
             print(f"Error deleting message: {e}")
 
+@tasks.loop(seconds=1)
+async def update_cpu():
+    await bot.get_channel(config.CHANNEL_TEXT).edit(topic=f'CPU Usage: {psutil.cpu_percent()}%')
 # Discord.py boilerplate
 async def main():
     async with bot:
