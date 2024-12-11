@@ -327,9 +327,7 @@ async def on_voice_state_update(member, before, after):
 # Discord.py boilerplate
 async def main():
     async with bot:
-        token = str(os.getenv('DISCORD_BOT_TOKEN'))
-        print(token)
-        await bot.start(token)
+        await bot.start(config.TOKEN_DISCORD)
 
 asyncio.run(main=main())
 
