@@ -150,6 +150,7 @@ class MusicBot(Bot):
             self.user.discriminator,
             self.user.id)
         print(msg)
+        update_cpu.start()
 
         if config.LOGGING_CHANNEL:
             channel = self.get_channel(config.CHANNEL_LOG)
@@ -328,14 +329,12 @@ async def on_message(message):
 
 @tasks.loop(seconds=1)
 async def update_cpu():
-    print("HUUUUH")
     await bot.get_channel(config.CHANNEL_TEXT).edit(topic=f'CPU Usage: {psutil.cpu_percent()}%')
 
 # Discord.py boilerplate
 async def main():
     async with bot:
         print(config.COMMAND_PREFIX)
-        update_cpu.start()
         await bot.start(config.TOKEN_DISCORD)
 
 
