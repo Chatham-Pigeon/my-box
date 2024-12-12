@@ -329,8 +329,10 @@ async def on_message(message):
 
 @tasks.loop(seconds=1)
 async def update_cpu():
-    await bot.get_channel(config.CHANNEL_TEXT).edit(topic=f'CPU Usage: {psutil.cpu_percent()}%')
-
+    try:
+        await bot.get_channel(config.CHANNEL_TEXT).edit(topic=f'CPU Usage: {psutil.cpu_percent()}%')
+    except Exception as e:
+        print(e)
 # Discord.py boilerplate
 async def main():
     async with bot:
