@@ -10,10 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run the bot
-        env:
-          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-
               
       - name: HTTP Request Action
         uses: fjogeleit/http-request-action@v1.16.3
