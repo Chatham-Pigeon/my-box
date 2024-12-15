@@ -507,17 +507,15 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 msg = get_empty_queue_msg()
             else:
                 if skip_count > 1:
-                    if is_admin(ctx):
+                    if await is_admin(ctx, False):
                         tracks: List[JukeboxItem] = jukebox.get_range(index_start=0, index_end=skip_count)
                         await self._do_skip(ctx=ctx, extra_data=tracks)
-                        await ctx.reply("probably not this one")
                     else:
                         msg = strings.get(__name="error_multi_skip_admin_only")
                 else:
-                    if jukebox.current_track().added_by.id == ctx.author.id or is_admin(ctx):
+                    if jukebox.current_track().added_by.id == ctx.author.id or await is_dj(ctx, False):
                         tracks: List[JukeboxItem] = jukebox.get_range(index_start=0, index_end=skip_count)
                         await self._do_skip(ctx=ctx, extra_data=tracks)
-                        await ctx.reply("it is porbably this one")
 
                     else:
                         msg = strings.get("error_skip_others_song")
