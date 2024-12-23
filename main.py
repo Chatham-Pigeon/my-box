@@ -273,11 +273,6 @@ class MusicBot(Bot):
 
 # Init
 
-
-
-
-
-
 bot = MusicBot()
 """Main instance of the bot."""
 
