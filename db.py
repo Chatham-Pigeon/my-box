@@ -27,18 +27,22 @@ class DBUser:
     tracks_added: int
     tracks_listened: int
     duration_listened: int
+    in_timeout: str
 
     def __init__(
             self,
             user_id: int,
             tracks_added: int,
             tracks_listened: int,
-            duration_listened: int
+            duration_listened: int,
+            in_timeout: str
+
     ):
         self.user_id = user_id
         self.tracks_added = tracks_added
         self.tracks_listened = tracks_listened
         self.duration_listened = duration_listened
+        self.in_timeout = in_timeout
 
 
 # Constant values
@@ -49,6 +53,7 @@ KEY_USER_ID: str = "ID"
 KEY_TRACKS_ADDED: str = "TRACKS_ADDED"
 KEY_TRACKS_LISTENED: str = "TRACKS_LISTENED"
 KEY_DURATION_LISTENED: str = "DURATION_LISTENED"
+KEY_IN_TIMEOUT: str = "IN_TIMEOUT"
 
 TABLE_GUILDS: str = "GUILDS"
 KEY_GUILD_ID: str = "ID"
@@ -73,13 +78,14 @@ def setup():
         ))
     # Users table
     db.execute(
-        "CREATE TABLE IF NOT EXISTS {0} ({1} INT PRIMARY KEY, {2} INT, {3} INT, {4} INT)"
+        "CREATE TABLE IF NOT EXISTS {0} ({1} INT PRIMARY KEY, {2} INT, {3} INT, {4} INT, {5} TEXT)"
         .format(
             TABLE_USERS,
             KEY_USER_ID,
             KEY_TRACKS_ADDED,
             KEY_TRACKS_LISTENED,
-            KEY_DURATION_LISTENED
+            KEY_DURATION_LISTENED,
+            KEY_IN_TIMEOUT
         ))
     db.commit()
     db.close()
