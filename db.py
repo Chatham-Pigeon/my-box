@@ -157,7 +157,8 @@ def _entry_to_user(entry: list) -> DBUser:
         user_id=entry[0],
         tracks_added=entry[1],
         tracks_listened=entry[2],
-        duration_listened=entry[3]
+        duration_listened=entry[3],
+        in_timeout=entry[4]
     )
 
 def get_user(user_id: int) -> DBUser:
