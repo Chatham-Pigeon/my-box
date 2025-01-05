@@ -32,7 +32,6 @@ from typing import Optional
 
 import discord
 import psutil
-from aiohttp.helpers import method_must_be_empty_body
 from discord.ext import commands, tasks
 from discord.ext.commands import Bot, Context, HelpCommand
 
