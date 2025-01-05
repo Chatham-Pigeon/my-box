@@ -44,7 +44,6 @@ def _check_roles(user: Union[discord.User, discord.Member], role_ids: List[int])
     """
     return (isinstance(user, discord.Member)
             and len(role_ids) > 0 and len([r for r in user.roles if r.id in role_ids]) > 0)
-"""mostly deprecated ZVZVZZV"""
 async def is_admin(ctx: Context, send_message: bool = True) -> bool:
     facts = _check_roles(ctx.author, [config.ROLE_ADMIN])
     if not facts and send_message:

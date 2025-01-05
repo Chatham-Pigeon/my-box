@@ -32,6 +32,7 @@ from typing import Optional
 
 import discord
 import psutil
+from aiohttp.helpers import method_must_be_empty_body
 from discord.ext import commands, tasks
 from discord.ext.commands import Bot, Context, HelpCommand
 
@@ -305,33 +306,28 @@ async def is_valid_command_use(ctx: Context) -> bool:
 
 @bot.event
 async def on_member_update(before, after):
-    db = sqlite3.connect("jukebox.db")
-    cursor = db.cursor()
+    entry: db.DBUser = bot.db.get_user(user_id=after.id)
     role_timeout = after.guild.get_role(config.ROLE_IN_TIMEOUT)  # Retrieve the role using its ID
     if role_timeout in after.roles and role_timeout not in before.roles:
         # User just got the ROLE_TIMECOUNT role
-        cursor.execute("UPDATE USERS SET IN_TIMEOUT = ? WHERE ID = ?", ('True', after.id))
-        db.commit()
+        entry.in_timeout = 'True'
     elif role_timeout not in after.roles and role_timeout in before.roles:
         # User just lost the ROLE_TIMECOUNT role
-        cursor.execute("UPDATE USERS SET IN_TIMEOUT = ? WHERE ID = ?", ('False', after.id))
-        db.commit()
-    db.close()
+        entry.in_timeout = 'False'
+    bot.db.update_user(entry=entry)
+
+
 @bot.event
 async def on_member_join(member):
     """
     Event triggered when a member joins the server. Assigns the timeout role
     if their 'inTimeout' field in USERDATA is true.
     """
-    db = sqlite3.connect("jukebox.db")
-    cursor = db.cursor()
+    entry: db.DBUser = bot.db.get_user(user_id=member.id)
     role_timeout = member.guild.get_role(config.ROLE_IN_TIMEOUT)  # Retrieve the timeout role using its ID
-    cursor.execute("SELECT IN_TIMEOUT FROM USERS WHERE ID = ?", (member.id,))
-    user_data = cursor.fetchone()
-    if user_data[0] == 'True':  # Check if `inTimeout` is true
+    if entry.in_timeout == 'True':  # Check if `inTimeout` is true
         if role_timeout:
             await member.add_roles(role_timeout)
-    db.close()
 @bot.event
 async def on_message(message):
     if message.channel.id == 1302851483108245525:
