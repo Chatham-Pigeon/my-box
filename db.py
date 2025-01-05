@@ -181,18 +181,20 @@ def update_user(entry: DBUser) -> None:
     Updates a user's database entry. Negative values will be ignored.
     """
     query: tuple = (
-        "REPLACE INTO {0} ({1}, {2}, {3}, {4}) VALUES (?, ?, ?, ?)"
+        "REPLACE INTO {0} ({1}, {2}, {3}, {4}, {5}) VALUES (?, ?, ?, ?, ?)"
         .format(
             TABLE_USERS,
             KEY_USER_ID,
             KEY_TRACKS_ADDED,
             KEY_TRACKS_LISTENED,
             KEY_DURATION_LISTENED,
+            KEY_IN_TIMEOUT,
         ), [
             entry.user_id,
             entry.tracks_added,
             entry.tracks_listened,
-            entry.duration_listened
+            entry.duration_listened,
+            entry.in_timeout
         ])
     _db_write(query)
 

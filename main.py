@@ -43,7 +43,6 @@ import strings
 from jukebox_checks import is_admin, CheckFailureQuietly, is_channel_ok
 from jukebox_impl import jukebox
 from jukebox_commands import ensure_voice
-import sqlite3
 
 
 
@@ -305,14 +304,19 @@ async def is_valid_command_use(ctx: Context) -> bool:
 
 @bot.event
 async def on_member_update(before, after):
+    print("MEMEBR UPDATED!")
     entry: db.DBUser = bot.db.get_user(user_id=after.id)
     role_timeout = after.guild.get_role(config.ROLE_IN_TIMEOUT)  # Retrieve the role using its ID
+    print(f'is role valid? {role_timeout.id} intime_outvalue: {entry.in_timeout}')
     if role_timeout in after.roles and role_timeout not in before.roles:
         # User just got the ROLE_TIMECOUNT role
         entry.in_timeout = 'True'
+        print('in_timeout is TRUE')
     elif role_timeout not in after.roles and role_timeout in before.roles:
         # User just lost the ROLE_TIMECOUNT role
         entry.in_timeout = 'False'
+        print('in_timeout is FALSE')
+    print(f'in_timoue tvalue: {entry.in_timeout}')
     bot.db.update_user(entry=entry)
 
 
@@ -327,6 +331,8 @@ async def on_member_join(member):
     if entry.in_timeout == 'True':  # Check if `inTimeout` is true
         if role_timeout:
             await member.add_roles(role_timeout)
+            await member.guild.get_channel(config.CHANNEL_TIMEOUT).send(f"LMFAO!! this IDIOT <@{member.id}> just tired leaving & rejoing to evade the timeout ")
+
 @bot.event
 async def on_message(message):
     if message.channel.id == 1302851483108245525:
