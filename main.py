@@ -27,7 +27,6 @@ import shutil
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
 from importlib import reload
-from time import sleep
 from typing import Optional
 
 import discord

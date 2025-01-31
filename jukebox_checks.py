@@ -52,21 +52,7 @@ async def is_admin(ctx: Context, send_message: bool = True) -> bool:
     return facts
 
 
-async def is_trusted(ctx: Context, send_message: bool = True) -> bool:
-    facts = _check_roles(ctx.author, [config.ROLE_TRUSTED, config.ROLE_JUKEBOX, config.ROLE_ADMIN])
-    if not facts and send_message:
-        msg = strings.get("error_command_role_permissions")
-        await ctx.reply(content=msg)
-    return facts
 
-
-async def is_default(ctx: Context, send_message: bool = True) -> bool:
-    facts = _check_roles(ctx.author, [config.ROLE_DEFAULT, config.ROLE_TRUSTED, config.ROLE_JUKEBOX, config.ROLE_ADMIN])
-    if not facts and send_message:
-        msg = strings.get("error_command_role_permissions")
-        await ctx.reply(content=msg)
-    return facts
-"""depreacted ^^^"""
 
 async def is_not_blacklisted(ctx: Context, send_message: bool = False) -> bool:
     facts = _check_roles(ctx.author, [config.ROLE_BLACKLISTED])

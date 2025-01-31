@@ -75,24 +75,14 @@ COMMAND_PREFIX: str = "?"
 """Prefix required for all messages sent in command channel."""
 
 
-"""depreacted VVV"""
-ROLE_ADMIN: int = 1232232285722513441
-"""Discord role ID for commands and features requiring admin privileges."""
-ROLE_TRUSTED: int = 1230678008256401480
-"""Discord role ID for commands and features requiring elevated privileges."""
-ROLE_DEFAULT: int = 1230678008256401480
-"""Discord role ID for commands requiring basic privileges."""
-ROLE_LISTEN: int = 1230678008256401480
-"""Discord role ID for a role with no privileges."""
-ROLE_JUKEBOX: int = 1230740678858768394
-"""Discord role ID for bonus flavour role themed around the jukebox."""
-"""DEPRECATED ^^^^"""
 
-ROLE_DJ: int = 1303657331581648916
+ROLE_ADMIN: int = 1334800621517148181
+"""Discord role ID for commands and features requiring admin privileges."""
+ROLE_DJ: int = 1334798262435184720
 """access slightly more important commands"""
-ROLE_BLACKLISTED: int = 1303657386371977246
+ROLE_BLACKLISTED: int = 1334797962257367080
 """no acccess to any commands"""
-ROLE_IN_TIMEOUT: int = 1239144809915093112
+ROLE_IN_TIMEOUT: int = 1334796459622662146
 
 CHANNEL_VOICE: int = 858670100512768010
 """Discord channel ID for the voice channel used for media playback."""

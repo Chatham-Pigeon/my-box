@@ -1422,9 +1422,6 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
             visible_roles: Dict[int, str] = {
                 config.ROLE_ADMIN: "emoji_id_junimo",
-                config.ROLE_JUKEBOX: "emoji_id_jukebox",
-                config.ROLE_TRUSTED: "emoji_id_gold",
-                config.ROLE_DEFAULT: "emoji_id_vinyl"
             }
 
             # Set thumbnail to user's privilege icon
@@ -1505,24 +1502,6 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
         return messages
 
-    async def _get_bulletin_embed(self, guild: discord.Guild) -> discord.Embed:
-        channel: discord.TextChannel = guild.get_channel(config.CHANNEL_TEXT)
-        emoji_jukebox: discord.Emoji = utils.get(Commands.bot.emojis, name=strings.get("emoji_id_jukebox"))
-        role_listen: discord.Role = guild.get_role(config.ROLE_LISTEN)
-        role_default: discord.Role = guild.get_role(config.ROLE_DEFAULT)
-        embed: discord.Embed = discord.Embed(
-            title=strings.get("bulletin_title").format(strings.emoji_play),
-            description=strings.get("bulletin_text").format(
-                strings.emoji_connection,
-                emoji_jukebox,
-                channel.mention,
-                role_listen.mention,
-                role_default.mention),
-            colour=get_embed_colour(guild),
-            url="https://discord.com/channels/392995143428341762/1021393197978619924"
-        )
-        embed.set_thumbnail(url=emoji_jukebox.url)
-        return embed
 
 
 # Utility functions
@@ -1593,8 +1572,7 @@ async def get_guild_message(guild: discord.Guild, message_id: int) -> discord.Me
                 pass
 
 def get_embed_colour(guild: discord.Guild) -> discord.Colour:
-    # return guild.get_role(config.ROLE_JUKEBOX).colour
-    return guild.get_role(config.ROLE_JUKEBOX).colour
+    return guild.get_role(858932039625474069).colour
 
 def get_current_track_embed(guild: discord.Guild, show_tracking: bool, description: Optional[str] = None, previous_track: JukeboxItem = None) -> discord.Embed:
     """
