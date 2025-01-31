@@ -35,6 +35,7 @@ import psutil
 from discord.ext import commands, tasks
 from discord.ext.commands import Bot, Context, HelpCommand
 
+import DISCORD_TOKEN
 import config
 import db
 import err
@@ -365,7 +366,7 @@ async def update_cpu():
 async def main():
     async with bot:
         print(config.COMMAND_PREFIX)
-        await bot.start(config.TOKEN_DISCORD)
+        await bot.start(DISCORD_TOKEN.TOKEN_DISCORD)
 
 
 asyncio.run(main=main())
