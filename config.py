@@ -76,13 +76,15 @@ COMMAND_PREFIX: str = "?"
 
 
 
-ROLE_ADMIN: int = 1334800621517148181
+ROLE_ADMIN: int = 1332275045619470478
 """Discord role ID for commands and features requiring admin privileges."""
 ROLE_DJ: int = 1334798262435184720
 """access slightly more important commands"""
 ROLE_BLACKLISTED: int = 1334797962257367080
 """no acccess to any commands"""
 ROLE_IN_TIMEOUT: int = 1334796459622662146
+
+USER_CHATHAM: int = 272534243899342849
 
 CHANNEL_VOICE: int = 858670100512768010
 """Discord channel ID for the voice channel used for media playback."""
