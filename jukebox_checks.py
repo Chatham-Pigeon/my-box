@@ -15,6 +15,7 @@ from typing import Union, List
 import discord
 from discord.ext import commands
 from discord.ext.commands import Context
+from discord.ui import View
 
 import config
 import strings
@@ -52,7 +53,11 @@ async def is_admin(ctx: Context, send_message: bool = True) -> bool:
         msg = strings.get("error_command_role_permissions")
         await ctx.reply(content=msg)
     return facts
-
+async def createView(viewList: dict):
+    view: discord.ui.View = View()
+    for i in viewList.values():
+        view.add_item(i)
+    return view
 
 
 
