@@ -1295,8 +1295,8 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
         embed = discord.Embed(title=f"{userPing} ({userNick})",
                               description=f"Voice Chat State: {userMuted}, {userDeafened}\nVoice Channel: <#{userCurrentChannel}>\nRoles:\n{formatted_roles}",
-                              colour=0x00b0f4, timestamp=datetime.datetime.now())
-        embed.set_footer(text=config.STATIC_CREDITS)
+                              colour=0x00b0f4, timestamp=datetime.now())
+        embed.set_footer(text="POOKIE PIGEON")
         embed.set_thumbnail(url=f"{userThumbnail}")
 
         view = View()
