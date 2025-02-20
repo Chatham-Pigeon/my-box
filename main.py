@@ -229,7 +229,7 @@ class MusicBot(Bot):
         if member.guild.voice_client and before.channel and before.channel.id == config.CHANNEL_VOICE and len(before.channel.members) < 2:
             # jukebox.stop()
             # await member.guild.voice_client.disconnect(force=True)
-            print(f"meooow ignore this")
+            pass
             if member.id == bot.user.id:
                 if before.channel is None and after.channel is not None:
                     await bot.get_channel(config.CHANNEL_LOG).send("Joined voicechat.")
@@ -343,12 +343,9 @@ async def on_message(message):
         try:
             if not message.pinned:
                 await message.delete()
-                print(f"Deleted message from {message.author} in {message.channel.name}")
             else:
-                print(f"dojt delete the pinned message!")
-        except discord.NotFound:
-            # Message was already deleted or could not be found
-            print(f"Message by {message.author} was already deleted or not found.")
+                print(f"dont delete the pinned message!")
+
         except discord.Forbidden:
             print(f"Bot does not have permission to delete messages in {message.channel.name}")
         except Exception as e:
