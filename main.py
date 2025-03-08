@@ -233,7 +233,7 @@ class MusicBot(Bot):
                     await bot.get_channel(config.CHANNEL_LOG).send("Joined voicechat.")
                 if before.channel is not None and after.channel is None:
                     await bot.get_channel(config.CHANNEL_LOG).send("Left voicechat.")
-        if not member.guild.voice_client and after.channel.members >= 1 and after.channel.id == config.CHANNEL_VOICE:
+        if not member.guild.voice_client and len(after.channel.members) >= 1 and after.channel.id == config.CHANNEL_VOICE:
             await ensure_voice()
 
     def reload_strings(self) -> None:
