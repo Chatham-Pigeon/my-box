@@ -160,7 +160,6 @@ class MusicBot(Bot):
                 self.user.id,
                 strings.emoji_connection)
             await channel.send(content=msg)
-        await ensure_voice()
 
     async def on_command(self, ctx: Context) -> None:
         """
@@ -305,19 +304,14 @@ async def is_valid_command_use(ctx: Context) -> bool:
 
 @bot.event
 async def on_member_update(before, after):
-    print("MEMEBR UPDATED!")
     entry: db.DBUser = bot.db.get_user(user_id=after.id)
     role_timeout = after.guild.get_role(config.ROLE_IN_TIMEOUT)  # Retrieve the role using its ID
-    print(f'is role valid? {role_timeout.id} intime_outvalue: {entry.in_timeout}')
     if role_timeout in after.roles and role_timeout not in before.roles:
         # User just got the ROLE_TIMECOUNT role
         entry.in_timeout = 'True'
-        print('in_timeout is TRUE')
     elif role_timeout not in after.roles and role_timeout in before.roles:
         # User just lost the ROLE_TIMECOUNT role
         entry.in_timeout = 'False'
-        print('in_timeout is FALSE')
-    print(f'in_timoue tvalue: {entry.in_timeout}')
     bot.db.update_user(entry=entry)
 
 
