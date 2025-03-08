@@ -227,14 +227,15 @@ class MusicBot(Bot):
         """
         # Stop playing music and leave the voice channel if all other users have disconnected
         if member.guild.voice_client and before.channel and before.channel.id == config.CHANNEL_VOICE and len(before.channel.members) < 2:
-            # jukebox.stop()
-            # await member.guild.voice_client.disconnect(force=True)
-            pass
+            jukebox.stop()
+            await member.guild.voice_client.disconnect(force=True)
             if member.id == bot.user.id:
                 if before.channel is None and after.channel is not None:
                     await bot.get_channel(config.CHANNEL_LOG).send("Joined voicechat.")
                 if before.channel is not None and after.channel is None:
                     await bot.get_channel(config.CHANNEL_LOG).send("Left voicechat.")
+        if not member.guild.voice_client and after.channel.members >= 1 and after.channel.id == config.CHANNEL_VOICE:
+            await ensure_voice()
 
     def reload_strings(self) -> None:
         """
@@ -351,7 +352,7 @@ async def on_message(message):
         except Exception as e:
             print(f"Error deleting message: {e}")
 
-@tasks.loop(seconds=1)
+@tasks.loop(seconds=60)
 async def update_cpu():
     try:
         await bot.get_channel(config.CHANNEL_TEXT).edit(topic=f'CPU Usage: {psutil.cpu_percent()}%')
