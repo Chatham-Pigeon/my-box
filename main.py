@@ -150,7 +150,7 @@ class MusicBot(Bot):
             self.user.discriminator,
             self.user.id)
         print(msg)
-        update_cpu.start()
+        await ensure_voice()
 
         if config.LOGGING_CHANNEL:
             channel = self.get_channel(config.CHANNEL_LOG)
