@@ -90,7 +90,7 @@ CHANNEL_VOICE: int = 858670100512768010
 """Discord channel ID for the voice channel used for media playback."""
 CHANNEL_TEXT: int = 1302851483108245525
 """Discord channel ID for the text channel used for command interactions."""
-CHANNEL_LOG: int = 982041162472915034
+CHANNEL_LOG: int = 1302851483108245525
 """Discord channel ID used to send status and event logging if configured."""
 CHANNEL_BULLETIN: int = 982041162472915034
 """Discord channel ID used to send bulletins and news updates."""
