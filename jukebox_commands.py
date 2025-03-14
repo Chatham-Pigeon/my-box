@@ -1217,6 +1217,9 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
         # button callback functions
         async def changeMuteState(interaction: discord.Interaction):
+            if not is_admin(ctx):
+                await interaction.response.send_message("You don't have permission for that.", ephemeral=True)
+                return
             try:
                 if not member.voice.mute:
                     await member.edit(mute=True)
@@ -1232,6 +1235,9 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 await ctx.reply("I DONT HAVE RIGHTS")
 
         async def disconnectUser(interaction: discord.Interaction):
+            if not is_admin(ctx):
+                await interaction.response.send_message("You don't have permission for that.", ephemeral=True)
+                return
             try:
                 await member.move_to(None)
                 await interaction.response.defer()
@@ -1239,6 +1245,9 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 await ctx.reply("I DONT HAVE RIGHTS")
 
         async def changeDeafenState(interaction: discord.Interaction):
+            if not is_admin(ctx):
+                await interaction.response.send_message("You don't have permission for that.", ephemeral=True)
+                return
             try:
                 if not member.voice.deaf:
                     await member.edit(deafen=True)

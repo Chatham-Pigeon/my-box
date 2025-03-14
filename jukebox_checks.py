@@ -53,6 +53,7 @@ async def is_admin(ctx: Context, send_message: bool = True) -> bool:
         msg = strings.get("error_command_role_permissions")
         await ctx.reply(content=msg)
     return facts
+
 async def createView(viewList: dict):
     view: discord.ui.View = View()
     for i in viewList.values():
@@ -70,7 +71,7 @@ async def is_not_blacklisted(ctx: Context, send_message: bool = False) -> bool:
 
 async def is_dj(ctx: Context, send_message: bool = True) -> bool:
     facts = _check_roles(ctx.author, [config.ROLE_DJ])
-    if facts is False:
+    if facts is False or not is_admin(ctx):
         msg = strings.get("error_command_role_permissions")
         if send_message:
              await ctx.reply(content=msg)
