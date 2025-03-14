@@ -54,6 +54,13 @@ async def is_admin(ctx: Context, send_message: bool = True) -> bool:
         await ctx.reply(content=msg)
     return facts
 
+async def user_id_is_admin(userid):
+    """ ok like is_admin wants a ctx and i don't have ctx in a interaction so im using user id instead
+    also because im too lazy to get user id as a real user im just checking if its MY user id bc i cbf
+    checking other admin rights"""
+    if userid == config.USER_CHATHAM:
+        return True
+
 async def createView(viewList: dict):
     view: discord.ui.View = View()
     for i in viewList.values():

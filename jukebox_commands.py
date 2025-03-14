@@ -1217,7 +1217,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
 
         # button callback functions
         async def changeMuteState(interaction: discord.Interaction):
-            if not await is_admin(ctx):
+            if not await jukebox_checks.user_id_is_admin(interaction.user.id):
                 await interaction.response.send_message("You don't have permission for that.", ephemeral=True)
                 return
             try:
@@ -1232,20 +1232,20 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 await interaction.message.edit(view=await jukebox_checks.createView(view_items))
                 await interaction.response.defer()
             except:
-                await ctx.reply("I DONT HAVE RIGHTS")
+                await ctx.reply("exception :(")
 
         async def disconnectUser(interaction: discord.Interaction):
-            if not await is_admin(ctx):
+            if not await jukebox_checks.user_id_is_admin(interaction.user.id):
                 await interaction.response.send_message("You don't have permission for that.", ephemeral=True)
                 return
             try:
                 await member.move_to(None)
                 await interaction.response.defer()
             except:
-                await ctx.reply("I DONT HAVE RIGHTS")
+                await ctx.reply("exception :(")
 
         async def changeDeafenState(interaction: discord.Interaction):
-            if not await is_admin(ctx):
+            if not await jukebox_checks.user_id_is_admin(interaction.user.id):
                 await interaction.response.send_message("You don't have permission for that.", ephemeral=True)
                 return
             try:
@@ -1260,7 +1260,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
                 await interaction.message.edit(view=await jukebox_checks.createView(view_items))
                 await interaction.response.defer()
             except:
-                await ctx.reply("I DONT HAVE RIGHTS")
+                await ctx.reply("exception :(")
 
         # except if victim not vcing
         try:
