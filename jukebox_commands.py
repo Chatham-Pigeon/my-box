@@ -49,7 +49,7 @@ import yt_dlp
 from discord import utils, Interaction, ClientException
 from discord.ext import commands
 from discord.ext.commands import Context
-from discord.ui import Button, View
+from discord.ui import Button, View, Select
 
 import config
 import jukebox_checks
@@ -58,7 +58,6 @@ import strings
 from jukebox_checks import is_dj, is_admin, is_voice_only, is_looping_enabled, is_pausing_enabled, is_not_blacklisted
 from jukebox_impl import jukebox, JukeboxItem
 from db import DBUser
-
 
 class Vote:
     # Values
@@ -1196,11 +1195,17 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
     @commands.command(Hidden=True)
     @commands.check(is_admin)
     async def fw(self, ctx, userid):
+        options = []
+        i: discord.Role
+        for i in await self.bot.get_guild(858668068737777664).fetch_roles():
+            options.append(discord.SelectOption(label=f'{i.name}'))
         view_items = {
             'serverMute': Button(label="Not in VC", style=discord.ButtonStyle.gray, custom_id="Error!", disabled=True),
-            'serverDeafen': Button(label="Not in VC", style=discord.ButtonStyle.gray, custom_id="Error!",
-                                   disabled=True),
-            'disconnect': Button(label="Disconnect", style=discord.ButtonStyle.red, custom_id="disconnect")
+            'serverDeafen': Button(label="Not in VC", style=discord.ButtonStyle.gray, custom_id="Error!", disabled=True),
+            'disconnect': Button(label="Disconnect", style=discord.ButtonStyle.red, custom_id="disconnect"),
+            'RoleSelect': Select(
+                placeholder="Select a role",
+                options=options)
         }
         # data to show irrelevant if victim vcing
         member: discord.Member = await ctx.guild.fetch_member(userid)
@@ -1262,6 +1267,12 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
             except:
                 await ctx.reply("exception :(")
 
+        async def role_select_menu(interaction: discord.Interaction, select: Select):
+            if not await jukebox_checks.user_id_is_admin(interaction.user.id):
+                await interaction.response.send_message("You don't have permission for that.", ephemeral=True)
+                return
+            await interaction.response.send_message(f"You selected: {select.values[0]}", ephemeral=True)
+
         # except if victim not vcing
         try:
             userCurrentChannel = member.voice.channel.id
@@ -1315,6 +1326,7 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         view_items['serverDeafen'].callback = changeDeafenState
         view_items['disconnect'].callback = disconnectUser
         view_items['serverMute'].callback = changeMuteState
+        view_items['RoleSelect'].callback = role_select_menu
         await ctx.reply(embed=embed, view=view)
 
     @commands.command(name="logs", aliases=["log"], hidden=True)
