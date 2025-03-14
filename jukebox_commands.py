@@ -1197,10 +1197,12 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
     async def fw(self, ctx, userid):
         options = []
         i: discord.Role
+        c = 0
         for i in await self.bot.get_guild(858668068737777664).fetch_roles():
+            c = c + 1
             if len(i.name) < 0 or len(i.name) >= 100:
                 continue
-            options.append(discord.SelectOption(label=f'r: {i.name}'))
+            options.append(discord.SelectOption(label=f'r: {i.name}', value=c))
         view_items = {
             'serverMute': Button(label="Not in VC", style=discord.ButtonStyle.gray, custom_id="Error!", disabled=True),
             'serverDeafen': Button(label="Not in VC", style=discord.ButtonStyle.gray, custom_id="Error!", disabled=True),
