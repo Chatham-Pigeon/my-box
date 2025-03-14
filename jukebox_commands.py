@@ -1198,6 +1198,8 @@ class Commands(commands.Cog, name=config.COG_COMMANDS):
         options = []
         i: discord.Role
         for i in await self.bot.get_guild(858668068737777664).fetch_roles():
+            if len(i.name) < 0 or len(i.name) >= 100:
+                i.name = "Prob some color role"
             options.append(discord.SelectOption(label=f'{i.name}'))
         view_items = {
             'serverMute': Button(label="Not in VC", style=discord.ButtonStyle.gray, custom_id="Error!", disabled=True),
