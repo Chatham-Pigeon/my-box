@@ -329,12 +329,13 @@ async def on_member_join(member):
             await member.guild.get_channel(config.CHANNEL_TIMEOUT).send(f"LMFAO!! this IDIOT <@{member.id}> just tired leaving & rejoing to evade the timeout ")
 
 @bot.event
-async def on_message(message):
+async def on_message(message: discord.Message):
+    if message.guild.id == config.GUILD_AGPDS:
+        await bot.get_channel(config.CHANNEL_PRIVATE).send(f"#{message.channel.name} `<@{message.author.id}>: {message.content}`")
     if message.channel.id == 1302851483108245525:
         await bot.process_commands(message)
         # Wait for 30 seconds (300 seconds)
         await asyncio.sleep(300)
-
         try:
             if not message.pinned:
                 await message.delete()

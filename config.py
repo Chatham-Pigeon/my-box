@@ -96,6 +96,8 @@ CHANNEL_BULLETIN: int = 982041162472915034
 """Discord channel ID used to send bulletins and news updates."""
 CHANNEL_TIMEOUT: int = 1239148902393974855
 """Discord channel ID used to send messages in the timeout channel"""
+GUILD_AGPDS: int = 0
+CHANNEL_PRIVATE: int = 1354586414616023050
 
 CORO_TIMEOUT: int = 60
 """Duration in seconds before coroutines are timed-out."""
